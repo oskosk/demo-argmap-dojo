@@ -1,0 +1,178 @@
+<!doctype html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!--> <html  lang="es"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    
+    <!-- Use the .htaccess and remove these lines to avoid edge case issues.
+    More info: h5bp.com/b/378 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title></title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
+    
+    <!-- CSS: implied media=all -->
+    <!-- CSS concatenated and minified via ant build script-->
+    
+    <link rel="stylesheet" type="text/css" href="http://mapa.ign.gob.ar/resources/dojo-custom-themes/argmap/argmap.css">
+    
+    <!-- end CSS-->
+    
+    <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
+    
+    <!-- All JavaScript at the bottom, except for Modernizr / Respond.
+    Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
+    For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
+    <script src="js/lib/modernizr-2.0.6.min.js"></script>
+    <script src="http://mapa.ign.gob.ar/resources/js/dojo-release-1.6.1/dojo/dojo.js"  djConfig="parseOnLoad: true"></script>
+    <script src="http://mapa.ign.gob.ar/resources/js/OpenLayers-2.11/build/OpenLayers-closure.js"></script>
+    <style type="text/css">
+        html, body { width: 100%; height: 100%; margin: 0; overflow:hidden; }
+        #borderContainer { width: 100%; height: 100%; }
+    </style>
+</head>
+
+<body class="argmap">
+    
+    <div  style=" height: 100%; width: 100%; border: 0;"  dojoType="dijit.layout.BorderContainer"   gutters="false">
+        <div dojoType="dijit.MenuBar" dojoattachpoint="containerNode" role="menubar" tabindex="0" region="top" >
+            <div dojoType="dijit.PopupMenuBarItem" >
+                <span>
+                    Mapa
+                </span>
+                <div dojoType="dijit.Menu" id="fileMenu">
+                    <div dojoType="dijit.MenuItem" id="">
+                        Abrir...
+                    </div>
+                    <div dojoType="dijit.MenuItem" id="">
+                        Guardar...
+                    </div>
+					<div dojoType="dijit.MenuItem" id="">
+                        Cerrar...
+                    </div>
+
+                        
+                </div>
+            </div>
+            <div dojoType="dijit.PopupMenuBarItem" >
+                <span>
+                    Capas
+                </span>
+                <div dojoType="dijit.Menu" id="layerMenu">
+                    <div dojoType="dijit.MenuItem" id="">
+                        Cargar capa...
+                    </div>
+                    <div dojoType="dijit.MenuItem" id="">
+                        Importar capa...
+                   </div>
+                        
+                </div>
+            </div>
+            <div dojoType="dijit.PopupMenuBarItem" >
+                <span>
+                    Editar
+                </span>
+                <div dojoType="dijit.Menu" id="editMenu">
+                    <div dojoType="dijit.MenuItem" id="punto">
+                        Marcar un punto
+                    </div>
+                    <div dojoType="dijit.MenuItem" id="poligono">
+                        Crear un polígono
+                    </div>
+                    
+                    <div dojoType="dijit.MenuItem" id="linea">
+                        Dibujar una línea
+                    </div>
+					 <div dojoType="dijit.MenuItem" >
+                        <input type="checkbox" dojoType="dijit.form.CheckBox">asd
+                    </div>
+                </div>
+            </div>
+            <div dojoType="dijit.PopupMenuBarItem">
+                <span>
+                    Ver
+                </span>
+                <div dojoType="dijit.Menu" id="viewMenu">
+                    <div dojoType="dijit.MenuItem" onClick="alert('edit 1')">
+                        Escala
+                    </div>
+                    <div dojoType="dijit.MenuItem" onClick="alert('edit 2')">
+                        Mostrar
+                    </div>
+                </div>
+            </div>
+
+        </div>
+<!--
+		<div dojoType="dijit.layout.ContentPane" style="width:300px" region="leading" >
+            
+        </div>
+-->
+        <div dojoType="dijit.layout.ContentPane" region="center" >
+            
+            <div id="mapcontainer" style="height:100%;width:100%"></div>
+        </div>  
+ <div dojoType="dijit.Dialog" id="dialog1" title="Login">
+      <form action="Login" method="post" validate="true" id="loginForm">
+        <table width="258">
+          <tr>
+            <td><label>Login</label></td>
+            <td><input type="text" trim="true" dojoType="dijit.form.TextBox" value="" name="login" id="userId"/></td>
+          </tr>
+          <tr>
+            <td><label>Password</label></td>
+            <td><input type="password" trim="true" dojoType="dijit.form.TextBox" value="" name="password" id="password"/></td>
+          </tr>
+          <tr><td colspan="2">&nbsp;</td></tr>
+          <tr>
+            <td colspan="2" align="center">
+            <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td align="center" valign="top"><button dojoType="dijit.form.Button" type="submit" id="LoginButton" onClick="alert("ok");">Ok</button></td>
+                  &nbsp;
+                  <td align="left" valign="top"><button dojoType="dijit.form.Button" type="submit" onclick="document.Login.reset()" id="Cancel">Cancel</button></td>
+                  &nbsp;
+                  <td><button dojoType="dijit.form.Button" type="submit" onclick="showDialog();" id="resetPassword"> Show Dialog </button></td>
+                </tr>
+           </table>
+           </td>
+          </tr>
+        </table>
+      </form>
+    </div>		
+    </div> <!--! end of #borderContainer -->
+    
+    
+    <!-- JavaScript at the bottom for fast page loading -->
+    
+    
+    
+    
+    <!-- scripts concatenated and minified via ant build script-->
+    <script src="js/argmap/argmap.js"></script>
+    <script defer src="js/app.js"></script>
+    
+    <!-- end scripts-->
+    
+    
+    
+    <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
+    chromium.org/developers/how-tos/chrome-frame-getting-started -->
+    <!--[if lt IE 7 ]>
+    <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+    <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+    <![endif]-->
+    
+</body>
+</html>
+
